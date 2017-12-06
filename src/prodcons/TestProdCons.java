@@ -16,7 +16,7 @@ public class TestProdCons extends Simulateur {
 	private int nombreMoyenProduction = 0;
 	private int deviationNombreMoyenProduction = 0;
 	
-	private int signalNombreDeProdu	ction = 0;
+	private int signalNombreDeProduction = 0;
 	
 	private ProdCons buffer;
 	
@@ -27,6 +27,6 @@ public class TestProdCons extends Simulateur {
 		// TODO Auto-generated method stub
 		}
 	public static void main(String[] args){new TestProdCons(new Observateur()).start();}
-	}
-
+	
 }
+

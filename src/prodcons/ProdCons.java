@@ -6,7 +6,7 @@ import jus.poc.prodcons.Tampon;
 import jus.poc.prodcons._Consommateur;
 import jus.poc.prodcons._Producteur;
 
-public class ProdCons extends Observateur implements Tampon {
+public class ProdCons implements Tampon {
 
 	@Override
 	public int enAttente() {
