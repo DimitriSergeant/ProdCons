@@ -2,7 +2,8 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry excluding="jus/poc/prodcons/class-use/|jus/poc/prodcons/class-use/" kind="src" path="Doc"/>
-	<classpathentry excluding="src/|Doc/|prodcons/|Doc/jus/poc/prodcons/class-use/" kind="src" path=""/>
+	<classpathentry excluding="src/|Doc/|prodcons/|Doc/jus/poc/prodcons/class-use/|Docs/|Docs/Doc/|Docs/Doc/" kind="src" path=""/>
+	<classpathentry kind="src" path="Docs/Doc"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="jus.util.assertion.jar"/>
 	<classpathentry kind="lib" path="jus.util.jar"/>
