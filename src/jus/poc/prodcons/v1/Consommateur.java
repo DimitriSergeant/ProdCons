@@ -6,30 +6,38 @@ import jus.poc.prodcons.Observateur;
 import jus.poc.prodcons._Consommateur;
 
 public class Consommateur extends Acteur implements _Consommateur {
+	
+	private ProdCons tampon;
+	private int nbMessageConso;
+	
+	protected Consommateur(int type, Observateur observateur, int moyenneTempsDeTraitement,
+			int deviationTempsDeTraitement) throws ControlException {
+		super(type, observateur, moyenneTempsDeTraitement, deviationTempsDeTraitement);
+		this.nbMessageConso = 0;
+		
+		
+	}
 
-    protected Consommateur(int type, Observateur observateur, int moyenneTempsDeTraitement,
-	    int deviationTempsDeTraitement) throws ControlException {
-	super(type, observateur, moyenneTempsDeTraitement, deviationTempsDeTraitement);
-    }
-
-    @Override
-    /*
-     * (non-Javadoc)
-     * 
-     * @see jus.poc.prodcons.Acteur#nombreDeMessages()
-     */
-    public int nombreDeMessages() {
-	return this.nombreDeMessages();
-    }
-
-    @Override
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Thread#run()
-     */
-    public void run() {
-
-    }
+	@Override
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see jus.poc.prodcons.Acteur#nombreDeMessages()
+	 */
+	public int nombreDeMessages() {
+		return this.nbMessageConso;
+	}
+	
+	
+	@Override
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Thread#run()
+	 */
+	public void run() {
+		
+		this.nbMessageConso++;
+	}
 
 }
