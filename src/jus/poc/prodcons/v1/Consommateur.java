@@ -1,18 +1,24 @@
 package jus.poc.prodcons.v1;
 
 import jus.poc.prodcons.Acteur;
+import jus.poc.prodcons.Aleatoire;
 import jus.poc.prodcons.ControlException;
+import jus.poc.prodcons.Message;
 import jus.poc.prodcons.Observateur;
 import jus.poc.prodcons._Consommateur;
 
 public class Consommateur extends Acteur implements _Consommateur {
-    
-    private int nbMessageTraites;
 
-    protected Consommateur(int type, Observateur observateur, int moyenneTempsDeTraitement,
+    private int nbMessageTraites;
+    ProdCons tampon;
+    Aleatoire VAtemps;
+
+    protected Consommateur(int type, Observateur observateur, ProdCons tampon, int moyenneTempsDeTraitement,
 	    int deviationTempsDeTraitement) throws ControlException {
 	super(type, observateur, moyenneTempsDeTraitement, deviationTempsDeTraitement);
 	this.nbMessageTraites = 0;
+	this.tampon = tampon;
+	VAtemps = new Aleatoire(moyenneTempsDeTraitement, deviationTempsDeTraitement);
     }
 
     @Override
@@ -32,7 +38,25 @@ public class Consommateur extends Acteur implements _Consommateur {
      * @see java.lang.Thread#run()
      */
     public void run() {
-	this.nbMessageTraites++;
+
+	Message m;
+
+	while (tampon.enAttente() > 0) {
+	    try {
+		Thread.sleep(VAtemps.next());
+	    } catch (InterruptedException e) {
+		System.out.println(e.toString());
+		e.printStackTrace();
+	    }
+	    try {
+		m = tampon.get(this);
+		System.out.println(m.toString());
+	    } catch (Exception e) {
+		System.out.println(e.toString());
+		e.printStackTrace();
+	    }
+	    this.nbMessageTraites++;
+	}
     }
 
 }
