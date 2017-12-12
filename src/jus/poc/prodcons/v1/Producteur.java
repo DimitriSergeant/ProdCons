@@ -12,7 +12,7 @@ public class Producteur extends Acteur implements _Producteur {
     protected Producteur(int type, Observateur observateur, int moyenneTempsDeTraitement,
 	    int deviationTempsDeTraitement) throws ControlException {
 	super(type, observateur, moyenneTempsDeTraitement, deviationTempsDeTraitement);
-	this.nbMessageATraiter = ;
+	this.nbMessageATraiter = Aleatoire.;
     }
 
     @Override
