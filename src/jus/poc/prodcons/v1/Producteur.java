@@ -6,10 +6,13 @@ import jus.poc.prodcons.Observateur;
 import jus.poc.prodcons._Producteur;
 
 public class Producteur extends Acteur implements _Producteur {
+    
+    private int nbMessageATraiter;
 
     protected Producteur(int type, Observateur observateur, int moyenneTempsDeTraitement,
 	    int deviationTempsDeTraitement) throws ControlException {
 	super(type, observateur, moyenneTempsDeTraitement, deviationTempsDeTraitement);
+	this.nbMessageATraiter = ;
     }
 
     @Override
@@ -19,7 +22,7 @@ public class Producteur extends Acteur implements _Producteur {
      * @see jus.poc.prodcons.Acteur#nombreDeMessages()
      */
     public int nombreDeMessages() {
-	return this.nombreDeMessages();
+	return this.nbMessageATraiter;
     }
 
     @Override
@@ -29,7 +32,7 @@ public class Producteur extends Acteur implements _Producteur {
      * @see java.lang.Thread#run()
      */
     public void run() {
-
+	this.nbMessageATraiter--;
     }
 
 }
