@@ -7,8 +7,7 @@ import jus.poc.prodcons._Producteur;
 
 public class Producteur extends Acteur implements _Producteur {
 
-	protected Producteur(int type, Observateur observateur, int moyenneTempsDeTraitement,
-			int deviationTempsDeTraitement) throws ControlException {
+	protected Producteur(int type, Observateur observateur, int moyenneTempsDeTraitement, int deviationTempsDeTraitement) throws ControlException {
 		super(type, observateur, moyenneTempsDeTraitement, deviationTempsDeTraitement);
 		// TODO Auto-generated constructor stub
 	}
