@@ -4,6 +4,10 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="jus.util.assertion.jar"/>
 	<classpathentry kind="lib" path="jus.util.jar"/>
-	<classpathentry kind="lib" path="ProdCons.jar"/>
+	<classpathentry kind="lib" path="ProdCons.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/media/dimitri/Data/RICM4/S1/SE/ProdCons/doc/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
