@@ -7,6 +7,7 @@ import jus.poc.prodcons.Observateur;
 import jus.poc.prodcons.Simulateur;
 
 public class TestProdCons extends Simulateur {
+    final private boolean DEBUG = false;
     private static String configurationFile = "options.xml";
 
     private int nbProd = 0;
@@ -45,13 +46,12 @@ public class TestProdCons extends Simulateur {
 	    value = Integer.parseInt((String) entry.getValue());
 	    thisOne.getDeclaredField(key).set(this, value);
 	}
-	if(false){
+	if(DEBUG){
 	    for(Map.Entry<Object, Object> entry : properties.entrySet()){
 		key = (String) entry.getKey();
 		System.out.println(key + "=" + thisOne.getDeclaredField(key).get(this));
 	    }
 	}
-	observateur.init(nbProd, nbCons, nbBuffer);
     }
 
     public static void main(String[] args) {
