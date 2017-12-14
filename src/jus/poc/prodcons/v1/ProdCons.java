@@ -7,7 +7,7 @@ import jus.poc.prodcons._Producteur;
 
 public class ProdCons implements Tampon {
     // Nombre de cases occupés
-    private int nplein;
+    private int nplein = 0;
     // Taille max du tampon
     private int N;
     private Message[] tampon;
@@ -19,6 +19,9 @@ public class ProdCons implements Tampon {
     public ProdCons(int n) {
 	this.N = n;
 	this.tampon = new Message[N];
+	this.nplein = 0;
+	this.in = 0;
+	this.out = 0;
     }
 
     public int enAttente() {
