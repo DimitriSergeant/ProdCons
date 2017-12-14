@@ -10,8 +10,8 @@ import jus.poc.prodcons._Consommateur;
 public class Consommateur extends Acteur implements _Consommateur {
 
     private int nbMessageTraites;
-    ProdCons tampon;
-    Aleatoire VAtemps;
+    private ProdCons tampon;
+    private Aleatoire VAtemps;
 
     protected Consommateur(Observateur observateur, ProdCons tampon, int moyenneTempsDeTraitement,
 	    int deviationTempsDeTraitement) throws ControlException {

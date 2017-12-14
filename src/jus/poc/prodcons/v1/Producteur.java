@@ -9,9 +9,9 @@ import jus.poc.prodcons._Producteur;
 public class Producteur extends Acteur implements _Producteur {
 
     private int nbMessageATraiter;
-    Aleatoire VAtemps;
-    Aleatoire VAproduction;
-    ProdCons tampon;
+    private Aleatoire VAtemps;
+    private Aleatoire VAproduction;
+    private ProdCons tampon;
 
     protected Producteur(Observateur observateur, ProdCons tampon, int moyenneTempsDeTraitement,
 	    int deviationTempsDeTraitement, int nombreMoyenDeProduction, int deviationNombreMoyenDeProduction)
@@ -47,16 +47,19 @@ public class Producteur extends Acteur implements _Producteur {
 
 	while (nbMessageATraiter > 0) {
 	    m = new MessageX(this.identification(), "Content");
-	    
+
 	    try {
 		Thread.sleep(VAtemps.next());
 	    } catch (InterruptedException e) {
 		System.out.println(e.toString());
 		e.printStackTrace();
 	    }
-	    
+
 	    try {
 		this.tampon.put(this, m);
+	    } catch (InterruptedException e) {
+		System.out.println(e.toString());
+		e.printStackTrace();
 	    } catch (Exception e) {
 		System.out.println(e.toString());
 		e.printStackTrace();

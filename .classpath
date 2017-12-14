@@ -6,7 +6,7 @@
 	<classpathentry kind="lib" path="jus.util.jar"/>
 	<classpathentry kind="lib" path="ProdCons.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/home/jordan/git/ProdCons/doc/"/>
+			<attribute name="javadoc_location" value="file:/home/jordan/RICM4/SE/ProdCons/doc/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
