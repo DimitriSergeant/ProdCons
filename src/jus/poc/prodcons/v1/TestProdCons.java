@@ -63,7 +63,7 @@ public class TestProdCons extends Simulateur {
 
 	for (int i = 0; i < nbProd; i++) {
 	    Producteur p = new Producteur(observateur, buffer, tempsMoyenProduction, deviationTempsMoyenProduction,
-		    nombreMoyenNbExemplaire, deviationNombreMoyenNbExemplaire);
+		    nombreMoyenDeProduction, deviationNombreMoyenDeProduction);
 	    producteurs.add(p);
 	    p.start();
 	    if (DEBUG) {

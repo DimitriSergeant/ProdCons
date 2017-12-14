@@ -17,7 +17,7 @@ public class MessageX implements Message {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString(){
-		return ("Message créé à la date " + date.getTime() + " par " + prod);
+		return ("MESSAGE : dépot à la date " + date.getTime() + " par " + prod);
 	}
 	
 	public java.util.Date getDate(){

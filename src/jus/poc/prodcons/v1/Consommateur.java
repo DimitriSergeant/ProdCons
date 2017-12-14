@@ -1,5 +1,7 @@
 package jus.poc.prodcons.v1;
 
+import java.util.Date;
+
 import jus.poc.prodcons.Acteur;
 import jus.poc.prodcons.Aleatoire;
 import jus.poc.prodcons.ControlException;
@@ -51,7 +53,8 @@ public class Consommateur extends Acteur implements _Consommateur {
 	    try {
 		m = tampon.get(this);
 		this.nbMessageTraites++;
-		System.out.println(m.toString() + " et consommé par " + this.identification());
+		Date d = new Date();
+		System.out.println(m.toString() + " et consommé par " + this.identification() + " à la date " + d.getTime());
 	    } catch (Exception e) {
 		System.out.println(e.toString());
 		e.printStackTrace();
