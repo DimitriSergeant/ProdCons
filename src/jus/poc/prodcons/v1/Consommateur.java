@@ -41,9 +41,11 @@ public class Consommateur extends Acteur implements _Consommateur {
 
 	Message m;
 
-	while (tampon.enAttente() > 0) {
-	    try {
+	System.out.println("en attente " + tampon.enAttente());
 
+	while (tampon.enAttente() > 0) {
+	    System.out.println("Consommation en cours");
+	    try {
 		Thread.sleep(VAtemps.next());
 	    } catch (InterruptedException e) {
 		System.out.println(e.toString());

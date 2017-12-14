@@ -86,7 +86,7 @@ public class TestProdCons extends Simulateur {
 	    producteur.join();
 	}
 	if (DEBUG) {
-	    System.out.println("Messages produits");
+	    System.out.println("Messages produits nplein ");
 	}
 
 	do {
