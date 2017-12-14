@@ -4,9 +4,9 @@
 <comment>
 options
 </comment>
-<entry key="nbProd">10</entry>
-<entry key="nbCons">10</entry>
-<entry key="nbBuffer">10</entry>
+<entry key="nbProd">100</entry>
+<entry key="nbCons">100</entry>
+<entry key="nbBuffer">100</entry>
 <entry key="tempsMoyenProduction">10</entry>
 <entry key="deviationTempsMoyenProduction">1</entry>
 <entry key="tempsMoyenConsommation">10</entry>

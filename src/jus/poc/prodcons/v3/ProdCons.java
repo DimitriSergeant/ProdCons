@@ -46,7 +46,7 @@ public class ProdCons implements Tampon {
 	    out = (out + 1) % N;
 	    nplein--;
 	}
-	SemC.V();
+	SemP.V();
 	obs.retraitMessage(c, m);
 	return m;
     }
@@ -58,7 +58,7 @@ public class ProdCons implements Tampon {
 	    in = (in + 1) % N;
 	    nplein++;
 	}
-	SemP.V();
+	SemC.V();
 	obs.depotMessage(p, m);
     }
 

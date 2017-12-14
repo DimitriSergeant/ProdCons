@@ -1,5 +1,8 @@
 package jus.poc.prodcons.v4;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import jus.poc.prodcons.Message;
 import jus.poc.prodcons.Observateur;
 import jus.poc.prodcons.Tampon;
@@ -7,18 +10,18 @@ import jus.poc.prodcons._Consommateur;
 import jus.poc.prodcons._Producteur;
 
 public class ProdCons implements Tampon {
-    
+
     // Nombre de cases occupés
     private int nplein = 0;
-    
+
     // Taille max du tampon
     private int N = 0;
-    
+
     private Message[] tampon = null;
-    
+
     // index pour retrait
     private int out = 0;
-    
+
     // index pour dépot
     private int in = 0;
 
@@ -31,12 +34,20 @@ public class ProdCons implements Tampon {
     // Observateur
     Observateur obs;
 
+    // Stockage du nombre d'exemplaires retirés associé à un message
+    Map<Message, Integer> nbRetires;
+
+    // Sémaphores bloquant les Producteurs pendant la consommation des exemplaires
+    // de leurs messages
+    Map<Integer, Semaphore> SemExemplaires;
+
     public ProdCons(int n, Observateur o) {
 	this.obs = o;
 	this.N = n;
 	this.tampon = new Message[N];
 	SemP = new Semaphore(n);
 	SemC = new Semaphore(n);
+	nbRetires = new HashMap<Message, Integer>();
     }
 
     public int enAttente() {
@@ -46,25 +57,46 @@ public class ProdCons implements Tampon {
     public Message get(_Consommateur c) throws Exception, InterruptedException {
 	SemC.P();
 	Message m;
+	int n;
+	boolean exemplairesEpuises;
 	synchronized (this) {
-	    m = tampon[out];
-	    out = (out + 1) % N;
-	    nplein--;
+	    m = (MessageX) tampon[out];
+	    n = nbRetires.get(m) + 1;
+	    if (n >= ((MessageX) m).getExemplaire()) {
+		nbRetires.remove(m);
+		out = (out + 1) % N;
+		nplein--;
+		exemplairesEpuises = true;
+	    } else {
+		nbRetires.put(m, nbRetires.get(m) + 1);
+		exemplairesEpuises = false;
+	    }
 	}
-	SemC.V();
+	if (exemplairesEpuises) {
+	    SemExemplaires.get(((MessageX) m).getProdMess()).V();
+	    SemP.V();
+	}else {
+	    SemC.V();
+	}
+	
 	obs.retraitMessage(c, m);
 	return m;
     }
 
     public void put(_Producteur p, Message m) throws Exception, InterruptedException {
+	obs.depotMessage(p, m);
 	SemP.P();
 	synchronized (this) {
 	    tampon[in] = m;
 	    in = (in + 1) % N;
 	    nplein++;
+	    nbRetires.put(m, 0);
 	}
-	SemP.V();
-	obs.depotMessage(p, m);
+	SemC.V();
+	
+	Semaphore s = new Semaphore(0);
+	SemExemplaires.put(p.identification(), s);
+	s.P();
     }
 
     public int taille() {

@@ -41,7 +41,7 @@ public class ProdCons implements Tampon {
 	    out = (out + 1) % N;
 	    nplein--;
 	}
-	SemC.V();
+	SemP.V();
 	return m;
     }
 
@@ -52,7 +52,7 @@ public class ProdCons implements Tampon {
 	    in = (in + 1) % N;
 	    nplein++;
 	}
-	SemP.V();
+	SemC.V();
     }
 
     public int taille() {
