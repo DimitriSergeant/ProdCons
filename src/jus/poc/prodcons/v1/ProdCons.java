@@ -9,19 +9,16 @@ public class ProdCons implements Tampon {
     // Nombre de cases occupés
     private int nplein = 0;
     // Taille max du tampon
-    private int N;
-    private Message[] tampon;
+    private int N = 0;
+    private Message[] tampon = null;
     // index pour retrait
-    private int out;
+    private int out = 0;
     // index pour dépot
-    private int in;
+    private int in = 0;
 
     public ProdCons(int n) {
 	this.N = n;
 	this.tampon = new Message[N];
-	this.nplein = 0;
-	this.in = 0;
-	this.out = 0;
     }
 
     public int enAttente() {
@@ -29,7 +26,7 @@ public class ProdCons implements Tampon {
     }
 
     public synchronized Message get(_Consommateur c) throws Exception, InterruptedException {
-	while (nplein < 0)
+	while (nplein <= 0)
 	    wait();
 	Message m = tampon[out];
 	out = (out + 1) % N;

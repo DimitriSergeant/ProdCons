@@ -1,6 +1,7 @@
 package jus.poc.prodcons.v1;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -27,9 +28,6 @@ public class TestProdCons extends Simulateur {
 
     private ProdCons buffer;
 
-    protected ArrayList<Consommateur> consommateurs;
-    protected ArrayList<Producteur> producteurs;
-
     public TestProdCons(Observateur observateur) {
 	super(observateur);
     }
@@ -45,8 +43,9 @@ public class TestProdCons extends Simulateur {
 	properties.loadFromXML(ClassLoader.getSystemResourceAsStream("jus/poc/prodcons/options/" + configurationFile));
 	String key;
 	int value;
-	consommateurs = new ArrayList<Consommateur>();
-	producteurs = new ArrayList<Producteur>();
+	List<Consommateur> consommateurs = new LinkedList<Consommateur>();
+	List<Producteur> producteurs = new LinkedList<Producteur>();
+
 	Class<?> thisOne = getClass();
 	for (Map.Entry<Object, Object> entry : properties.entrySet()) {
 	    key = (String) entry.getKey();
@@ -86,7 +85,7 @@ public class TestProdCons extends Simulateur {
 	    producteur.join();
 	}
 	if (DEBUG) {
-	    System.out.println("Messages produits nplein ");
+	    System.out.println("Messages produits");
 	}
 
 	do {

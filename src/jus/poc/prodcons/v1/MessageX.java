@@ -8,7 +8,6 @@ public class MessageX implements Message {
 	private int prod;
 	private String message;
 	private Date date;
-	private int rangbuffer;
 	
 	public MessageX(int idProd, String message){
 		this.prod = idProd;
@@ -21,14 +20,7 @@ public class MessageX implements Message {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString(){
-		return ("Message : '" + message + "' numero : " + this.getRang() +" créé par " + prod);
-	}
-	
-	public int getRang(){
-		return this.rangbuffer;
-	}
-	public void setId(int rang){
-		this.rangbuffer = rang;
+		return ("Message : '" + message + "' créé par " + prod);
 	}
 	
 	public Date getDate(){

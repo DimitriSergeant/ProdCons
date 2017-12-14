@@ -47,12 +47,10 @@ public class Producteur extends Acteur implements _Producteur {
     public void run() {
 
 	MessageX m;
-	System.out.println(nbMessageATraiter);
 
 	while (nbMessageATraiter > 0) {
-	    System.out.println("Production en cours");
 
-	    m = new MessageX(this.identification(), "Content");
+	    m = new MessageX(this.identification(), "");
 
 	    try {
 		Thread.sleep(VAtemps.next());
@@ -63,6 +61,7 @@ public class Producteur extends Acteur implements _Producteur {
 
 	    try {
 		this.tampon.put(this, m);
+		this.nbMessageATraiter--;
 	    } catch (InterruptedException e) {
 		System.out.println(e.toString());
 		e.printStackTrace();
@@ -70,8 +69,6 @@ public class Producteur extends Acteur implements _Producteur {
 		System.out.println(e.toString());
 		e.printStackTrace();
 	    }
-
-	    this.nbMessageATraiter--;
 	}
     }
 }

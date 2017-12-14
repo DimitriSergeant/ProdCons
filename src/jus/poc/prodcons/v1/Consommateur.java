@@ -8,7 +8,7 @@ import jus.poc.prodcons.Observateur;
 import jus.poc.prodcons._Consommateur;
 
 public class Consommateur extends Acteur implements _Consommateur {
-	final private boolean DEBUG = true;
+    final private boolean DEBUG = true;
     private int nbMessageTraites;
     private ProdCons tampon;
     private Aleatoire VAtemps;
@@ -41,10 +41,7 @@ public class Consommateur extends Acteur implements _Consommateur {
 
 	Message m;
 
-	System.out.println("en attente " + tampon.enAttente());
-
-	while (tampon.enAttente() > 0) {
-	    System.out.println("Consommation en cours");
+	while (true) {
 	    try {
 		Thread.sleep(VAtemps.next());
 	    } catch (InterruptedException e) {
@@ -53,12 +50,12 @@ public class Consommateur extends Acteur implements _Consommateur {
 	    }
 	    try {
 		m = tampon.get(this);
-		System.out.println("Message" + m.toString());
+		this.nbMessageTraites++;
+		System.out.println(m.toString() + " Consommé par " + this.identification());
 	    } catch (Exception e) {
 		System.out.println(e.toString());
 		e.printStackTrace();
 	    }
-	    this.nbMessageTraites++;
 	}
     }
 
