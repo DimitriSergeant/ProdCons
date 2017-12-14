@@ -1,5 +1,7 @@
 package jus.poc.prodcons.v1;
 
+import java.util.Date;
+
 import jus.poc.prodcons.Acteur;
 import jus.poc.prodcons.Aleatoire;
 import jus.poc.prodcons.ControlException;
@@ -50,7 +52,7 @@ public class Producteur extends Acteur implements _Producteur {
 
 	while (nbMessageATraiter > 0) {
 
-	    m = new MessageX(this.identification(), "");
+	    m = new MessageX(this.identification(), new Date());
 
 	    try {
 		Thread.sleep(VAtemps.next());

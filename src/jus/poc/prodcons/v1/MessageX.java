@@ -1,17 +1,14 @@
 package jus.poc.prodcons.v1;
 
-import java.sql.Date;
-
 import jus.poc.prodcons.Message;
 
 public class MessageX implements Message {
 	private int prod;
-	private String message;
-	private Date date;
+	private java.util.Date date;
 	
-	public MessageX(int idProd, String message){
+	public MessageX(int idProd, java.util.Date d){
 		this.prod = idProd;
-		this.message = message;
+		this.date = d;
 	}
 	
 	@Override
@@ -20,13 +17,13 @@ public class MessageX implements Message {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString(){
-		return ("Message : '" + message + "' créé par " + prod);
+		return ("Message créé à la date " + date.getTime() + " par " + prod);
 	}
 	
-	public Date getDate(){
+	public java.util.Date getDate(){
 		return this.date;
 	}
-	public void setDate(Date d){
+	public void setDate(java.util.Date d){
 		this.date = d;
 	}
 	

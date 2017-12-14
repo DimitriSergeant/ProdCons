@@ -81,8 +81,8 @@ public class TestProdCons extends Simulateur {
 	    }
 	}
 
-	for (Producteur producteur : producteurs) {
-	    producteur.join();
+	for (Producteur p : producteurs) {
+	    p.join();
 	}
 	if (DEBUG) {
 	    System.out.println("Messages produits");
@@ -94,6 +94,8 @@ public class TestProdCons extends Simulateur {
 	if (DEBUG) {
 	    System.out.println("Messages consommés");
 	}
+
+	System.exit(0);
 
     }
 

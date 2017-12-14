@@ -51,7 +51,7 @@ public class Consommateur extends Acteur implements _Consommateur {
 	    try {
 		m = tampon.get(this);
 		this.nbMessageTraites++;
-		System.out.println(m.toString() + " Consommé par " + this.identification());
+		System.out.println(m.toString() + " et consommé par " + this.identification());
 	    } catch (Exception e) {
 		System.out.println(e.toString());
 		e.printStackTrace();
