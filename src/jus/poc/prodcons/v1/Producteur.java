@@ -13,10 +13,10 @@ public class Producteur extends Acteur implements _Producteur {
     Aleatoire VAproduction;
     ProdCons tampon;
 
-    protected Producteur(int type, Observateur observateur, ProdCons tampon, int moyenneTempsDeTraitement,
+    protected Producteur(Observateur observateur, ProdCons tampon, int moyenneTempsDeTraitement,
 	    int deviationTempsDeTraitement, int nombreMoyenDeProduction, int deviationNombreMoyenDeProduction)
 	    throws ControlException {
-	super(type, observateur, moyenneTempsDeTraitement, deviationTempsDeTraitement);
+	super(typeProducteur, observateur, moyenneTempsDeTraitement, deviationTempsDeTraitement);
 
 	VAproduction = new Aleatoire(nombreMoyenDeProduction, deviationNombreMoyenDeProduction);
 	VAtemps = new Aleatoire(moyenneTempsDeTraitement, deviationTempsDeTraitement);

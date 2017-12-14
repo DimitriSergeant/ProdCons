@@ -13,9 +13,9 @@ public class Consommateur extends Acteur implements _Consommateur {
     ProdCons tampon;
     Aleatoire VAtemps;
 
-    protected Consommateur(int type, Observateur observateur, ProdCons tampon, int moyenneTempsDeTraitement,
+    protected Consommateur(Observateur observateur, ProdCons tampon, int moyenneTempsDeTraitement,
 	    int deviationTempsDeTraitement) throws ControlException {
-	super(type, observateur, moyenneTempsDeTraitement, deviationTempsDeTraitement);
+	super(typeConsommateur, observateur, moyenneTempsDeTraitement, deviationTempsDeTraitement);
 	this.nbMessageTraites = 0;
 	this.tampon = tampon;
 	VAtemps = new Aleatoire(moyenneTempsDeTraitement, deviationTempsDeTraitement);
