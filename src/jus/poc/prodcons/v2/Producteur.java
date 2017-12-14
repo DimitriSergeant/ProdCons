@@ -9,7 +9,6 @@ import jus.poc.prodcons.Observateur;
 import jus.poc.prodcons._Producteur;
 
 public class Producteur extends Acteur implements _Producteur {
-    final private boolean DEBUG = true;
     private int nbMessageATraiter;
     private Aleatoire VAtemps;
     private Aleatoire VAproduction;
