@@ -43,6 +43,7 @@ public class Consommateur extends Acteur implements _Consommateur {
 
 	while (tampon.enAttente() > 0) {
 	    try {
+
 		Thread.sleep(VAtemps.next());
 	    } catch (InterruptedException e) {
 		System.out.println(e.toString());
@@ -50,7 +51,7 @@ public class Consommateur extends Acteur implements _Consommateur {
 	    }
 	    try {
 		m = tampon.get(this);
-		System.out.println(m.toString());
+		System.out.println("Message" + m.toString());
 	    } catch (Exception e) {
 		System.out.println(e.toString());
 		e.printStackTrace();
