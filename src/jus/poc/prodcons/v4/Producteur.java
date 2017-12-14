@@ -1,4 +1,4 @@
-package jus.poc.prodcons.v2;
+package jus.poc.prodcons.v4;
 
 import java.util.Date;
 
@@ -12,18 +12,21 @@ public class Producteur extends Acteur implements _Producteur {
     private int nbMessageATraiter;
     private Aleatoire VAtemps;
     private Aleatoire VAproduction;
+    private Aleatoire VAexemplaire;
     private ProdCons tampon;
 
     protected Producteur(Observateur observateur, ProdCons tampon, int moyenneTempsDeTraitement,
-	    int deviationTempsDeTraitement, int nombreMoyenDeProduction, int deviationNombreMoyenDeProduction)
+	    int deviationTempsDeTraitement, int nombreMoyenDeProduction, int deviationNombreMoyenDeProduction, int nombreMoyenNbExemplaire, int deviationNombreMoyenNbExemplaire)
 	    throws ControlException {
 	super(typeProducteur, observateur, moyenneTempsDeTraitement, deviationTempsDeTraitement);
 
 	VAproduction = new Aleatoire(nombreMoyenDeProduction, deviationNombreMoyenDeProduction);
 	VAtemps = new Aleatoire(moyenneTempsDeTraitement, deviationTempsDeTraitement);
+	VAexemplaire = new Aleatoire(nombreMoyenNbExemplaire, deviationNombreMoyenNbExemplaire);
 
 	this.nbMessageATraiter = VAproduction.next();
 	this.tampon = tampon;
+	this.observateur.newProducteur(this);
     }
 
     @Override
@@ -48,10 +51,11 @@ public class Producteur extends Acteur implements _Producteur {
 
 	while (nbMessageATraiter > 0) {
 
-	    m = new MessageX(this.identification(), new Date());
+	    m = new MessageX(this.identification(), new Date(), VAexemplaire.next());
+	    int tempsDeTraitement = VAtemps.next();
 
 	    try {
-		Thread.sleep(VAtemps.next());
+		Thread.sleep(tempsDeTraitement);
 	    } catch (InterruptedException e) {
 		System.out.println(e.toString());
 		e.printStackTrace();
@@ -59,6 +63,7 @@ public class Producteur extends Acteur implements _Producteur {
 
 	    try {
 		this.tampon.put(this, m);
+		this.observateur.productionMessage(this, m, tempsDeTraitement);
 		this.nbMessageATraiter--;
 	    } catch (InterruptedException e) {
 		System.out.println(e.toString());

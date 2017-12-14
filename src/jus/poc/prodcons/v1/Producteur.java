@@ -22,9 +22,6 @@ public class Producteur extends Acteur implements _Producteur {
 	VAproduction = new Aleatoire(nombreMoyenDeProduction, deviationNombreMoyenDeProduction);
 	VAtemps = new Aleatoire(moyenneTempsDeTraitement, deviationTempsDeTraitement);
 
-	VAproduction = new Aleatoire(nombreMoyenDeProduction, deviationNombreMoyenDeProduction);
-	VAtemps = new Aleatoire(moyenneTempsDeTraitement, deviationTempsDeTraitement);
-
 	this.nbMessageATraiter = VAproduction.next();
 	this.tampon = tampon;
     }
