@@ -25,7 +25,7 @@ public class ProdCons implements Tampon {
 	return nplein;
     }
 
-    public synchronized Message get(_Consommateur c) throws Exception, InterruptedException {
+    public Message get(_Consommateur c) throws Exception, InterruptedException {
 	while (nplein < 0)
 	    wait();
 	Message m = tampon[out];
@@ -35,7 +35,7 @@ public class ProdCons implements Tampon {
 	return m;
     }
 
-    public synchronized void put(_Producteur p, Message m) throws Exception, InterruptedException {
+    public void put(_Producteur p, Message m) throws Exception, InterruptedException {
 	while (nplein >= N)
 	    wait();
 	tampon[in] = m;
