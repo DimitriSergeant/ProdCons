@@ -8,7 +8,6 @@ import jus.poc.prodcons.Observateur;
 import jus.poc.prodcons._Consommateur;
 
 public class Consommateur extends Acteur implements _Consommateur {
-    final private boolean DEBUG = true;
     private int nbMessageTraites;
     private ProdCons tampon;
     private Aleatoire VAtemps;
