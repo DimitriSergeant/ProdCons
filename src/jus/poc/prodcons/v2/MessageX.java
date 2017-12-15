@@ -5,10 +5,12 @@ import jus.poc.prodcons.Message;
 public class MessageX implements Message {
 	private int prod;
 	private java.util.Date date;
+	private int num;
 	
-	public MessageX(int idProd, java.util.Date d){
+	public MessageX(int idProd, int num, java.util.Date d){
 		this.prod = idProd;
 		this.date = d;
+		this.num = num;
 	}
 	
 	@Override
@@ -17,7 +19,7 @@ public class MessageX implements Message {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString(){
-		return ("MESSAGE : dépot à la date " + date.getTime() + " par " + prod);
+		return ("MESSAGE"+this.getNum()+" : dépot à la date " + date.getTime() + " par " + prod);
 	}
 	
 	public java.util.Date getDate(){
@@ -29,6 +31,10 @@ public class MessageX implements Message {
 	
 	public int getProdMess(){
 		return this.prod;
+	}
+	
+	public int getNum(){
+		return this.num;
 	}
 	
 	

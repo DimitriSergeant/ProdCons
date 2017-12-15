@@ -13,6 +13,7 @@ public class Consommateur extends Acteur implements _Consommateur {
     private int nbMessageTraites;
     private ProdCons tampon;
     private Aleatoire VAtemps;
+    final private boolean TRACE = true;
 
     protected Consommateur(Observateur observateur, ProdCons tampon, int moyenneTempsDeTraitement,
 	    int deviationTempsDeTraitement) throws ControlException {
@@ -53,7 +54,7 @@ public class Consommateur extends Acteur implements _Consommateur {
 		m = tampon.get(this);
 		this.nbMessageTraites++;
 		Date d = new Date();
-		System.out.println(m.toString() + " et consommé par " + this.identification() + " à la date " + d.getTime());
+		if(TRACE) System.out.println(m.toString() + " et consommé par " + this.identification() + " à la date " + d.getTime());
 	    } catch (Exception e) {
 		System.out.println(e.toString());
 		e.printStackTrace();

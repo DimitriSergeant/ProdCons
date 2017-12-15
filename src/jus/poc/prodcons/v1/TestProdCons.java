@@ -9,7 +9,7 @@ import jus.poc.prodcons.Observateur;
 import jus.poc.prodcons.Simulateur;
 
 public class TestProdCons extends Simulateur {
-    final private boolean DEBUG = true;
+    final private boolean DEBUG = false;
     private static String configurationFile = "options.xml";
 
     private int nbProd = 0;
@@ -39,6 +39,8 @@ public class TestProdCons extends Simulateur {
      * @see jus.poc.prodcons.Simulateur#run()
      */
     protected void run() throws Exception {
+
+	// Chargement des paramètres de la simulation depuis le fichier xml
 	Properties properties = new Properties();
 	properties.loadFromXML(ClassLoader.getSystemResourceAsStream("jus/poc/prodcons/options/" + configurationFile));
 	String key;
@@ -59,8 +61,10 @@ public class TestProdCons extends Simulateur {
 	    }
 	}
 
+	// Création du tampon de messages
 	buffer = new ProdCons(nbBuffer);
 
+	// Création et lancement des producteurs
 	for (int i = 0; i < nbProd; i++) {
 	    Producteur p = new Producteur(observateur, buffer, tempsMoyenProduction, deviationTempsMoyenProduction,
 		    nombreMoyenDeProduction, deviationNombreMoyenDeProduction);
@@ -71,6 +75,7 @@ public class TestProdCons extends Simulateur {
 	    }
 	}
 
+	// Création des consommateurs
 	for (int i = 0; i < nbCons; i++) {
 	    Consommateur c = new Consommateur(observateur, buffer, tempsMoyenConsommation,
 		    deviationTempsMoyenConsommation);
@@ -81,6 +86,7 @@ public class TestProdCons extends Simulateur {
 	    }
 	}
 
+	// On attend la mort de tous les producteurs
 	for (Producteur p : producteurs) {
 	    p.join();
 	}
@@ -88,6 +94,9 @@ public class TestProdCons extends Simulateur {
 	    System.out.println("Messages produits");
 	}
 
+	// Tant qu'il reste des messages dans le buffer, on laisse travailler les
+	// consommateurs
+	// Bien que l'utilisation de yield n'est pas des plus correct
 	do {
 	    Thread.yield();
 	} while (buffer.enAttente() > 0);
@@ -95,6 +104,8 @@ public class TestProdCons extends Simulateur {
 	    System.out.println("Messages consommés");
 	}
 
+	// On force l'arrêt du programme lorsque tous les messages ont été produit et
+	// consommés
 	System.exit(0);
 
     }

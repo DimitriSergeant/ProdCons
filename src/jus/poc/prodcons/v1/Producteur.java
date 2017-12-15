@@ -45,10 +45,11 @@ public class Producteur extends Acteur implements _Producteur {
     public void run() {
 
 	MessageX m;
+	int cpt = 1;
 
 	while (nbMessageATraiter > 0) {
 
-	    m = new MessageX(this.identification(), new Date());
+	    m = new MessageX(this.identification(), cpt++, new Date());
 
 	    try {
 		Thread.sleep(VAtemps.next());

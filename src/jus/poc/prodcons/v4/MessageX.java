@@ -6,11 +6,13 @@ public class MessageX implements Message {
     private int prod;
     private java.util.Date date;
     private int nbExemplaire;
+    private int num;
 
-    public MessageX(int idProd, java.util.Date d, int n) {
+    public MessageX(int idProd, int num, java.util.Date d, int n) {
 	this.prod = idProd;
 	this.date = d;
 	this.nbExemplaire = n;
+	this.num = num;
     }
 
     @Override
@@ -20,7 +22,7 @@ public class MessageX implements Message {
      * @see java.lang.Object#toString()
      */
     public String toString() {
-	return ("MESSAGE : dépot à la date " + date.getTime() + " par " + prod);
+	return ("MESSAGE"+this.getNum()+" : dépot à la date " + date.getTime() + " par " + prod);
     }
 
     public java.util.Date getDate() {
@@ -37,6 +39,10 @@ public class MessageX implements Message {
 
     public int getExemplaire() {
 	return this.nbExemplaire;
+    }
+    
+    public int getNum() {
+	return this.num;
     }
 
 }
