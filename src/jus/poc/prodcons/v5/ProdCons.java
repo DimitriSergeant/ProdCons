@@ -23,12 +23,12 @@ public class ProdCons implements Tampon {
 	// index pour dépot
 	private int in = 0;
 
-	// Lock permettant de bloquer la lecture ou l'écriture
+	// Verrou bloquant l'accès au buffer
 	private final Lock verrou = new ReentrantLock();
 
-	//Condition qui bloque l'ecriture du producteur 
+	//Condition qui bloque les dépots dans le buffer
 	Condition pasPlein = verrou.newCondition();
-	//Condition qui bloque la lecture du consommateur 
+	//Condition qui bloque les retraits dans le buffer
 	Condition pasVide = verrou.newCondition();
 
 	// Observateur
@@ -73,7 +73,7 @@ public class ProdCons implements Tampon {
 		//on ferme le verrou
 		this.verrou.lock();
 		try {
-			/* On attend tant qu'il y a trop de messages */
+			/* On attend tant que le buffer est plein */
 			while (nplein >= N){
 				this.pasPlein.await();	
 			}
