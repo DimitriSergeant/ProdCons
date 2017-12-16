@@ -67,8 +67,6 @@ public class ProdCons implements Tampon {
 			//on réouvre le verrou
 			this.verrou.unlock();
 		}
-
-
 	}
 
 	public void put(_Producteur p, Message m) throws Exception, InterruptedException {
