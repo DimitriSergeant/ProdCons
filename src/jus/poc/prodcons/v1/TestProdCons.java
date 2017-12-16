@@ -10,6 +10,7 @@ import jus.poc.prodcons.Simulateur;
 
 public class TestProdCons extends Simulateur {
     final private boolean DEBUG = false;
+    final static boolean TRACE = true;
     private static String configurationFile = "options.xml";
 
     private int nbProd = 0;
@@ -96,7 +97,6 @@ public class TestProdCons extends Simulateur {
 
 	// Tant qu'il reste des messages dans le buffer, on laisse travailler les
 	// consommateurs
-	// Bien que l'utilisation de yield n'est pas des plus correct
 	do {
 	    Thread.yield();
 	} while (buffer.enAttente() > 0);
@@ -104,8 +104,8 @@ public class TestProdCons extends Simulateur {
 	    System.out.println("Messages consommés");
 	}
 
-	// On force l'arrêt du programme lorsque tous les messages ont été produit et
-	// consommés
+	// On force l'arrêt du programme lorsque tous les messages ont été produit,
+	// consommé et traités
 	System.exit(0);
 
     }

@@ -5,6 +5,7 @@ import jus.poc.prodcons.Observateur;
 import jus.poc.prodcons.Tampon;
 import jus.poc.prodcons._Consommateur;
 import jus.poc.prodcons._Producteur;
+import jus.poc.prodcons.v3.TestProdCons;
 
 public class ProdCons implements Tampon {
     // Nombre de cases occupés
@@ -41,8 +42,11 @@ public class ProdCons implements Tampon {
     public Message get(_Consommateur c) throws Exception, InterruptedException {
 	SemC.P();
 	Message m;
+	// Section critique pour manipuler les variables partagées
 	synchronized (this) {
 	    m = tampon[out];
+	    if (TestProdCons.TRACE)
+		System.out.println("Retrait " + m);
 	    out = (out + 1) % N;
 	    nplein--;
 	}
@@ -53,8 +57,11 @@ public class ProdCons implements Tampon {
 
     public void put(_Producteur p, Message m) throws Exception, InterruptedException {
 	SemP.P();
+	// Section critique pour manipuler les variables partagées
 	synchronized (this) {
 	    tampon[in] = m;
+	    if (TestProdCons.TRACE)
+		System.out.println("Dépot " + m);
 	    in = (in + 1) % N;
 	    nplein++;
 	}

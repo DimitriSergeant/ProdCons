@@ -1,7 +1,5 @@
 package jus.poc.prodcons.v4;
 
-import java.util.Date;
-
 import jus.poc.prodcons.Acteur;
 import jus.poc.prodcons.Aleatoire;
 import jus.poc.prodcons.ControlException;
@@ -19,6 +17,8 @@ public class Consommateur extends Acteur implements _Consommateur {
 	super(typeConsommateur, observateur, moyenneTempsDeTraitement, deviationTempsDeTraitement);
 	this.nbMessageTraites = 0;
 	this.tampon = tampon;
+	// Création de la variable aléatoire générant le temps de traitement d'un
+	// message
 	VAtemps = new Aleatoire(moyenneTempsDeTraitement, deviationTempsDeTraitement);
 	this.observateur.newConsommateur(this);
     }
@@ -47,17 +47,17 @@ public class Consommateur extends Acteur implements _Consommateur {
 	while (true) {
 	    tempsDeTraitement = VAtemps.next();
 	    try {
+		// On endort le thread pour simuler un temps de traitement
 		Thread.sleep(tempsDeTraitement);
 	    } catch (InterruptedException e) {
 		System.out.println(e.toString());
 		e.printStackTrace();
 	    }
 	    try {
+		// Retrait d'un message du buffer
 		m = tampon.get(this);
 		this.observateur.consommationMessage(this, m, tempsDeTraitement);
 		this.nbMessageTraites++;
-		Date d = new Date();
-		System.out.println(m.toString() + " et consommé par " + this.identification() + " à la date " + d.getTime());
 	    } catch (Exception e) {
 		System.out.println(e.toString());
 		e.printStackTrace();

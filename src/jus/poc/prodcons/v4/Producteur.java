@@ -1,7 +1,5 @@
 package jus.poc.prodcons.v4;
 
-import java.util.Date;
-
 import jus.poc.prodcons.Acteur;
 import jus.poc.prodcons.Aleatoire;
 import jus.poc.prodcons.ControlException;
@@ -16,12 +14,16 @@ public class Producteur extends Acteur implements _Producteur {
     private ProdCons tampon;
 
     protected Producteur(Observateur observateur, ProdCons tampon, int moyenneTempsDeTraitement,
-	    int deviationTempsDeTraitement, int nombreMoyenDeProduction, int deviationNombreMoyenDeProduction, int nombreMoyenNbExemplaire, int deviationNombreMoyenNbExemplaire)
-	    throws ControlException {
+	    int deviationTempsDeTraitement, int nombreMoyenDeProduction, int deviationNombreMoyenDeProduction,
+	    int nombreMoyenNbExemplaire, int deviationNombreMoyenNbExemplaire) throws ControlException {
 	super(typeProducteur, observateur, moyenneTempsDeTraitement, deviationTempsDeTraitement);
 
+	// Création de la variable aléatoire générant le nombre de messages à produire
 	VAproduction = new Aleatoire(nombreMoyenDeProduction, deviationNombreMoyenDeProduction);
+	// Création de la variable aléatoire générant le temps de traitement d'un
+	// message
 	VAtemps = new Aleatoire(moyenneTempsDeTraitement, deviationTempsDeTraitement);
+	// Création de la variable aléatoire générant le nombre d'exemplaire à produire
 	VAexemplaire = new Aleatoire(nombreMoyenNbExemplaire, deviationNombreMoyenNbExemplaire);
 
 	this.nbMessageATraiter = VAproduction.next();
@@ -52,10 +54,11 @@ public class Producteur extends Acteur implements _Producteur {
 
 	while (nbMessageATraiter > 0) {
 
-	    m = new MessageX(this.identification(), num++, new Date(), VAexemplaire.next());
+	    m = new MessageX(this.identification(), num++, VAexemplaire.next());
 	    int tempsDeTraitement = VAtemps.next();
 
 	    try {
+		// On endort le thread pour simuler un temps de traitement
 		Thread.sleep(tempsDeTraitement);
 	    } catch (InterruptedException e) {
 		System.out.println(e.toString());
@@ -63,6 +66,7 @@ public class Producteur extends Acteur implements _Producteur {
 	    }
 
 	    try {
+		// Dépot du message
 		this.tampon.put(this, m);
 		this.observateur.productionMessage(this, m, tempsDeTraitement);
 		this.nbMessageATraiter--;

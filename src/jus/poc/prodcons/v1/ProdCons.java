@@ -26,21 +26,31 @@ public class ProdCons implements Tampon {
     }
 
     public synchronized Message get(_Consommateur c) throws Exception, InterruptedException {
+	// On attend que la buffer ne soit plus vide
 	while (nplein <= 0)
 	    wait();
+	// Retrait d'un message
 	Message m = tampon[out];
+	if (TestProdCons.TRACE)
+	    System.out.println("Retrait " + m);
 	out = (out + 1) % N;
 	nplein--;
+	// On réveille les producteurs
 	notifyAll();
 	return m;
     }
 
     public synchronized void put(_Producteur p, Message m) throws Exception, InterruptedException {
+	// On attend que le buffer ne soit plus plein
 	while (nplein >= N)
 	    wait();
+	// Dépot d'un message
 	tampon[in] = m;
+	if (TestProdCons.TRACE)
+	    System.out.println("Dépot " + m);
 	in = (in + 1) % N;
 	nplein++;
+	// On réveille les consommateurs
 	notifyAll();
     }
 

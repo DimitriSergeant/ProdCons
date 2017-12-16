@@ -8,6 +8,7 @@ import jus.poc.prodcons.Observateur;
 import jus.poc.prodcons.Tampon;
 import jus.poc.prodcons._Consommateur;
 import jus.poc.prodcons._Producteur;
+import jus.poc.prodcons.v4.TestProdCons;
 
 public class ProdCons implements Tampon {
 
@@ -61,6 +62,8 @@ public class ProdCons implements Tampon {
 	boolean exemplairesEpuises;
 	synchronized (this) {
 	    m = (MessageX) tampon[out];
+	    if (TestProdCons.TRACE)
+		System.out.println("Retrait " + m);
 	    n = nbRetires.get(m) + 1;
 	    if (n >= ((MessageX) m).getExemplaire()) {
 		nbRetires.remove(m);

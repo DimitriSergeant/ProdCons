@@ -4,12 +4,12 @@
 <comment>
 options
 </comment>
-<entry key="nbProd">100</entry>
-<entry key="nbCons">100</entry>
-<entry key="nbBuffer">50</entry>
-<entry key="tempsMoyenProduction">10</entry>
+<entry key="nbProd">3</entry>
+<entry key="nbCons">3</entry>
+<entry key="nbBuffer">10</entry>
+<entry key="tempsMoyenProduction">500</entry>
 <entry key="deviationTempsMoyenProduction">1</entry>
-<entry key="tempsMoyenConsommation">1000</entry>
+<entry key="tempsMoyenConsommation">500</entry>
 <entry key="deviationTempsMoyenConsommation">0</entry>
 <entry key="nombreMoyenDeProduction">5</entry>
 <entry key="deviationNombreMoyenDeProduction">0</entry>

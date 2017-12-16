@@ -9,7 +9,8 @@ import jus.poc.prodcons.Observateur;
 import jus.poc.prodcons.Simulateur;
 
 public class TestProdCons extends Simulateur {
-    final private boolean DEBUG = true;
+    final private boolean DEBUG = false;
+    final static boolean TRACE = true;
     private static String configurationFile = "options.xml";
 
     private int nbProd = 0;
@@ -39,6 +40,7 @@ public class TestProdCons extends Simulateur {
      * @see jus.poc.prodcons.Simulateur#run()
      */
     protected void run() throws Exception {
+	// Récupération des paramètres de la simulation à partir du fichier xml
 	Properties properties = new Properties();
 	properties.loadFromXML(ClassLoader.getSystemResourceAsStream("jus/poc/prodcons/options/" + configurationFile));
 	String key;
@@ -59,13 +61,16 @@ public class TestProdCons extends Simulateur {
 	    }
 	}
 
+	// Création du buffer
 	buffer = new ProdCons(nbBuffer, observateur);
-	
+
 	this.observateur.init(nbProd, nbCons, nbBuffer);
 
+	// Création des producteurs
 	for (int i = 0; i < nbProd; i++) {
 	    Producteur p = new Producteur(observateur, buffer, tempsMoyenProduction, deviationTempsMoyenProduction,
-		    nombreMoyenDeProduction, deviationNombreMoyenDeProduction, nombreMoyenNbExemplaire,deviationNombreMoyenNbExemplaire);
+		    nombreMoyenDeProduction, deviationNombreMoyenDeProduction, nombreMoyenNbExemplaire,
+		    deviationNombreMoyenNbExemplaire);
 	    producteurs.add(p);
 	    p.start();
 	    if (DEBUG) {
@@ -73,6 +78,7 @@ public class TestProdCons extends Simulateur {
 	    }
 	}
 
+	// Création des consommateurs
 	for (int i = 0; i < nbCons; i++) {
 	    Consommateur c = new Consommateur(observateur, buffer, tempsMoyenConsommation,
 		    deviationTempsMoyenConsommation);
@@ -83,6 +89,7 @@ public class TestProdCons extends Simulateur {
 	    }
 	}
 
+	// On attend que les productions de messages soint terminées
 	for (Producteur p : producteurs) {
 	    p.join();
 	}
@@ -90,6 +97,7 @@ public class TestProdCons extends Simulateur {
 	    System.out.println("Messages produits");
 	}
 
+	// Temps qu'il reste des messages on laisse travailler les consommateurs
 	do {
 	    Thread.yield();
 	} while (buffer.enAttente() > 0);
@@ -97,6 +105,7 @@ public class TestProdCons extends Simulateur {
 	    System.out.println("Messages consommés");
 	}
 
+	// On force la fin du programme
 	System.exit(0);
 
     }

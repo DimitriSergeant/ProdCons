@@ -1,7 +1,5 @@
 package jus.poc.prodcons.v2;
 
-import java.util.Date;
-
 import jus.poc.prodcons.Acteur;
 import jus.poc.prodcons.Aleatoire;
 import jus.poc.prodcons.ControlException;
@@ -19,7 +17,9 @@ public class Producteur extends Acteur implements _Producteur {
 	    throws ControlException {
 	super(typeProducteur, observateur, moyenneTempsDeTraitement, deviationTempsDeTraitement);
 
+	// Création de la variable générant le nombre de message à produire
 	VAproduction = new Aleatoire(nombreMoyenDeProduction, deviationNombreMoyenDeProduction);
+	// Création de la variable générant le temps du production d'un message
 	VAtemps = new Aleatoire(moyenneTempsDeTraitement, deviationTempsDeTraitement);
 
 	this.nbMessageATraiter = VAproduction.next();
@@ -49,9 +49,10 @@ public class Producteur extends Acteur implements _Producteur {
 
 	while (nbMessageATraiter > 0) {
 
-	    m = new MessageX(this.identification(), num++, new Date());
+	    m = new MessageX(this.identification(), num++);
 
 	    try {
+		// On endort le thread pour simuler un temps de traitement
 		Thread.sleep(VAtemps.next());
 	    } catch (InterruptedException e) {
 		System.out.println(e.toString());
@@ -59,6 +60,7 @@ public class Producteur extends Acteur implements _Producteur {
 	    }
 
 	    try {
+		// Dépot d'un message
 		this.tampon.put(this, m);
 		this.nbMessageATraiter--;
 	    } catch (InterruptedException e) {
