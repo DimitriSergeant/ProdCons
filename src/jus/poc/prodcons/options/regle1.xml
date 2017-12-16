@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>
+Ce test permet de constater la première propriété : 
+	les messages sont retirés du tampon dans l'ordre où ils ont été déposés
+</comment>
+<entry key="nbProd">3</entry>
+<entry key="nbCons">5</entry>
+<entry key="nbBuffer">20</entry>
+<entry key="tempsMoyenProduction">250</entry>
+<entry key="deviationTempsMoyenProduction">100</entry>
+<entry key="tempsMoyenConsommation">250</entry>
+<entry key="deviationTempsMoyenConsommation">25</entry>
+<entry key="nombreMoyenDeProduction">3</entry>
+<entry key="deviationNombreMoyenDeProduction">2</entry>
+<entry key="nombreMoyenNbExemplaire">5</entry>
+<entry key="deviationNombreMoyenNbExemplaire">3</entry>
+</properties>

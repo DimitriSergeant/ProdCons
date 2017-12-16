@@ -2,17 +2,17 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 <comment>
-options
+Test de routine
 </comment>
-<entry key="nbProd">3</entry>
-<entry key="nbCons">4</entry>
-<entry key="nbBuffer">10</entry>
-<entry key="tempsMoyenProduction">500</entry>
-<entry key="deviationTempsMoyenProduction">0</entry>
-<entry key="tempsMoyenConsommation">250</entry>
-<entry key="deviationTempsMoyenConsommation">0</entry>
-<entry key="nombreMoyenDeProduction">3</entry>
-<entry key="deviationNombreMoyenDeProduction">0</entry>
+<entry key="nbProd">50</entry>
+<entry key="nbCons">50</entry>
+<entry key="nbBuffer">100</entry>
+<entry key="tempsMoyenProduction">10</entry>
+<entry key="deviationTempsMoyenProduction">5</entry>
+<entry key="tempsMoyenConsommation">5</entry>
+<entry key="deviationTempsMoyenConsommation">2</entry>
+<entry key="nombreMoyenDeProduction">5</entry>
+<entry key="deviationNombreMoyenDeProduction">2</entry>
 <entry key="nombreMoyenNbExemplaire">5</entry>
-<entry key="deviationNombreMoyenNbExemplaire">0</entry>
+<entry key="deviationNombreMoyenNbExemplaire">3</entry>
 </properties>

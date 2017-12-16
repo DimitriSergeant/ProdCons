@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>
+Ce test permet de constater la première propriété : 
+	l'application ne se termine que lorsque tous les producteurs ont effectué leurs productions et que
+	tous les messages produits ont été consommés et traités par des consommateurs.
+</comment>
+<entry key="nbProd">10</entry>
+<entry key="nbCons">10</entry>
+<entry key="nbBuffer">10</entry>
+<entry key="tempsMoyenProduction">15</entry>
+<entry key="deviationTempsMoyenProduction">0</entry>
+<entry key="tempsMoyenConsommation">10</entry>
+<entry key="deviationTempsMoyenConsommation">0</entry>
+<entry key="nombreMoyenDeProduction">1</entry>
+<entry key="deviationNombreMoyenDeProduction">0</entry>
+<entry key="nombreMoyenNbExemplaire">5</entry>
+<entry key="deviationNombreMoyenNbExemplaire">0</entry>
+</properties>
