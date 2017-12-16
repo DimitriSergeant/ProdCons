@@ -1,4 +1,4 @@
-package jus.poc.prodcons.v4;
+package jus.poc.prodcons.v4bis;
 
 import java.util.LinkedList;
 import java.util.List;
