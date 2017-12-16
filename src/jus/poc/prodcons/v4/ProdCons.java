@@ -47,8 +47,9 @@ public class ProdCons implements Tampon {
 	this.N = n;
 	this.tampon = new Message[N];
 	SemP = new Semaphore(n);
-	SemC = new Semaphore(n);
+	SemC = new Semaphore(0);
 	nbRetires = new HashMap<Message, Integer>();
+	SemExemplaires = new HashMap<Integer, Semaphore>();
     }
 
     public int enAttente() {
@@ -78,10 +79,10 @@ public class ProdCons implements Tampon {
 	if (exemplairesEpuises) {
 	    SemExemplaires.get(((MessageX) m).getProdMess()).V();
 	    SemP.V();
-	}else {
+	} else {
 	    SemC.V();
 	}
-	
+
 	obs.retraitMessage(c, m);
 	return m;
     }
@@ -91,12 +92,14 @@ public class ProdCons implements Tampon {
 	SemP.P();
 	synchronized (this) {
 	    tampon[in] = m;
+	    if (TestProdCons.TRACE)
+		System.out.println("Dépot " + m);
 	    in = (in + 1) % N;
 	    nplein++;
 	    nbRetires.put(m, 0);
 	}
 	SemC.V();
-	
+
 	Semaphore s = new Semaphore(0);
 	SemExemplaires.put(p.identification(), s);
 	s.P();

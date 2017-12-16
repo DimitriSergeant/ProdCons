@@ -9,7 +9,7 @@ options
 <entry key="nbBuffer">10</entry>
 <entry key="tempsMoyenProduction">500</entry>
 <entry key="deviationTempsMoyenProduction">1</entry>
-<entry key="tempsMoyenConsommation">500</entry>
+<entry key="tempsMoyenConsommation">250</entry>
 <entry key="deviationTempsMoyenConsommation">0</entry>
 <entry key="nombreMoyenDeProduction">5</entry>
 <entry key="deviationNombreMoyenDeProduction">0</entry>
