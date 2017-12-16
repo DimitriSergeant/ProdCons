@@ -4,15 +4,15 @@
 <comment>
 Test de routine
 </comment>
-<entry key="nbProd">50</entry>
-<entry key="nbCons">50</entry>
-<entry key="nbBuffer">100</entry>
-<entry key="tempsMoyenProduction">10</entry>
+<entry key="nbProd">1000</entry>
+<entry key="nbCons">1000</entry>
+<entry key="nbBuffer">5000</entry>
+<entry key="tempsMoyenProduction">20</entry>
 <entry key="deviationTempsMoyenProduction">5</entry>
-<entry key="tempsMoyenConsommation">5</entry>
+<entry key="tempsMoyenConsommation">10</entry>
 <entry key="deviationTempsMoyenConsommation">2</entry>
-<entry key="nombreMoyenDeProduction">5</entry>
+<entry key="nombreMoyenDeProduction">20</entry>
 <entry key="deviationNombreMoyenDeProduction">2</entry>
-<entry key="nombreMoyenNbExemplaire">5</entry>
+<entry key="nombreMoyenNbExemplaire">10</entry>
 <entry key="deviationNombreMoyenNbExemplaire">3</entry>
 </properties>

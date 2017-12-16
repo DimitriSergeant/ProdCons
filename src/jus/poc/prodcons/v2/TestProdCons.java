@@ -25,8 +25,6 @@ public class TestProdCons extends Simulateur {
     private int nombreMoyenNbExemplaire = 0;
     private int deviationNombreMoyenNbExemplaire = 0;
 
-    private int signalNombreDeProduction = 0;
-
     private ProdCons buffer;
 
     public TestProdCons(Observateur observateur) {

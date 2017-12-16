@@ -1,7 +1,5 @@
 package jus.poc.prodcons.v6;
 
-import java.util.Date;
-
 import jus.poc.prodcons.Acteur;
 import jus.poc.prodcons.Aleatoire;
 import jus.poc.prodcons.ControlException;
