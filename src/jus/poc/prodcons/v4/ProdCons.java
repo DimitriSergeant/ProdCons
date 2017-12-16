@@ -1,4 +1,4 @@
-package jus.poc.prodcons.v4bis;
+package jus.poc.prodcons.v4;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -9,7 +9,7 @@ import jus.poc.prodcons.Observateur;
 import jus.poc.prodcons.Tampon;
 import jus.poc.prodcons._Consommateur;
 import jus.poc.prodcons._Producteur;
-import jus.poc.prodcons.v4bis.TestProdCons;
+import jus.poc.prodcons.v4.TestProdCons;
 
 public class ProdCons implements Tampon {
 

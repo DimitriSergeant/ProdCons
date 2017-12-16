@@ -1,4 +1,4 @@
-package jus.poc.prodcons.v4bis;
+package jus.poc.prodcons.v4;
 
 import jus.poc.prodcons.Acteur;
 import jus.poc.prodcons.Aleatoire;
