@@ -26,9 +26,13 @@ public class ProdCons implements Tampon {
 
     // Observateur
     Observateur obs;
+    
+    // MyObservateur
+    MyObservateur mo;
 
-    public ProdCons(int n, Observateur o) {
+    public ProdCons(int n, Observateur o, MyObservateur mo) {
 	this.obs = o;
+	this.mo = mo;
 	this.N = n;
 	this.tampon = new Message[N];
 	SemP = new Semaphore(n);
@@ -51,6 +55,7 @@ public class ProdCons implements Tampon {
 	    nplein--;
 	}
 	SemP.V();
+	mo.retraitMessage(c, m);
 	obs.retraitMessage(c, m);
 	return m;
     }
@@ -66,6 +71,7 @@ public class ProdCons implements Tampon {
 	    nplein++;
 	}
 	SemC.V();
+	mo.depotMessage(p, m);
 	obs.depotMessage(p, m);
     }
 

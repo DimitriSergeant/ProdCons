@@ -28,9 +28,12 @@ public class TestProdCons extends Simulateur {
     private int signalNombreDeProduction = 0;
 
     private ProdCons buffer;
+    
+    private MyObservateur mo;
 
-    public TestProdCons(Observateur observateur) {
-	super(observateur);
+    public TestProdCons(Observateur observateur, MyObservateur mo) {
+    	super(observateur);
+    	this.mo = mo;
     }
 
     @Override
@@ -62,13 +65,14 @@ public class TestProdCons extends Simulateur {
 	}
 
 	// Création du buffer
-	buffer = new ProdCons(nbBuffer, observateur);
+	buffer = new ProdCons(nbBuffer, observateur, this.mo);
 
 	this.observateur.init(nbProd, nbCons, nbBuffer);
+	this.mo.init(nbProd, nbCons, nbBuffer);
 
 	// Création des producteurs
 	for (int i = 0; i < nbProd; i++) {
-	    Producteur p = new Producteur(observateur, buffer, tempsMoyenProduction, deviationTempsMoyenProduction,
+	    Producteur p = new Producteur(observateur, mo, buffer, tempsMoyenProduction, deviationTempsMoyenProduction,
 		    nombreMoyenDeProduction, deviationNombreMoyenDeProduction);
 	    producteurs.add(p);
 	    p.start();
@@ -79,7 +83,7 @@ public class TestProdCons extends Simulateur {
 
 	// Création des consommateurs
 	for (int i = 0; i < nbCons; i++) {
-	    Consommateur c = new Consommateur(observateur, buffer, tempsMoyenConsommation,
+	    Consommateur c = new Consommateur(observateur, mo, buffer, tempsMoyenConsommation,
 		    deviationTempsMoyenConsommation);
 	    consommateurs.add(c);
 	    c.start();
@@ -111,7 +115,7 @@ public class TestProdCons extends Simulateur {
     }
 
     public static void main(String[] args) {
-	new TestProdCons(new Observateur()).start();
-    }
+    	new TestProdCons(new Observateur(), new MyObservateur()).start();
+	}
 
 }

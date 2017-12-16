@@ -13,8 +13,9 @@ public class Consommateur extends Acteur implements _Consommateur {
     private int nbMessageTraites;
     private ProdCons tampon;
     private Aleatoire VAtemps;
+	private MyObservateur mo;
 
-    protected Consommateur(Observateur observateur, ProdCons tampon, int moyenneTempsDeTraitement,
+    protected Consommateur(Observateur observateur, MyObservateur mo, ProdCons tampon, int moyenneTempsDeTraitement,
 	    int deviationTempsDeTraitement) throws ControlException {
 	super(typeConsommateur, observateur, moyenneTempsDeTraitement, deviationTempsDeTraitement);
 	this.nbMessageTraites = 0;
@@ -23,6 +24,8 @@ public class Consommateur extends Acteur implements _Consommateur {
 	// message
 	VAtemps = new Aleatoire(moyenneTempsDeTraitement, deviationTempsDeTraitement);
 	this.observateur.newConsommateur(this);
+	this.mo = mo;
+	this.mo.newConsommateur(this);
     }
 
     @Override
@@ -59,6 +62,7 @@ public class Consommateur extends Acteur implements _Consommateur {
 		// Retrait d'un message du buffer
 		m = tampon.get(this);
 		this.observateur.consommationMessage(this, m, tempsDeTraitement);
+		this.mo.consommationMessage(this, m, tempsDeTraitement);
 		this.nbMessageTraites++;
 	    } catch (Exception e) {
 		System.out.println(e.toString());
