@@ -26,7 +26,7 @@ public class ProdCons implements Tampon {
 
     // Observateur
     Observateur obs;
-    
+
     // MyObservateur
     MyObservateur mo;
 
@@ -53,10 +53,10 @@ public class ProdCons implements Tampon {
 		System.out.println("Retrait " + m);
 	    out = (out + 1) % N;
 	    nplein--;
+	    mo.retraitMessage(c, m);
+	    obs.retraitMessage(c, m);
 	}
 	SemP.V();
-	mo.retraitMessage(c, m);
-	obs.retraitMessage(c, m);
 	return m;
     }
 
@@ -64,6 +64,8 @@ public class ProdCons implements Tampon {
 	SemP.P();
 	// Section critique pour manipuler les variables partagées
 	synchronized (this) {
+	    mo.depotMessage(p, m);
+	    obs.depotMessage(p, m);
 	    tampon[in] = m;
 	    if (TestProdCons.TRACE)
 		System.out.println("Dépot " + m);
@@ -71,8 +73,6 @@ public class ProdCons implements Tampon {
 	    nplein++;
 	}
 	SemC.V();
-	mo.depotMessage(p, m);
-	obs.depotMessage(p, m);
     }
 
     public int taille() {

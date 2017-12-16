@@ -160,11 +160,11 @@ public class MyObservateur{
 		if(this.messagesDejaRetire.containsKey(m) == true){
 			throw new ControlException(c.getClass(), "retraitMessage: Message déjà retiré");
 		}
-//		// On teste que le message que veut retirer le consommateur soit bien le premier message inséré dans la file
-//		if (! (fileMessages.peek() == m )){
-//			throw new ControlException(c.getClass(), "consommationMessage: Le message ne correspond pas au premier message mis dans le tampon");
-//		}
-		
+		// On teste que le message que veut retirer le consommateur soit bien le premier message inséré dans la file
+		if (! (fileMessages.peek() == m )){
+			throw new ControlException(c.getClass(), "consommationMessage: Le message ne correspond pas au premier message mis dans le tampon");
+		}
+		this.fileMessages.remove(m);
 		this.messagesDejaRetire.put(m, c);
 		verrou.unlock();
 	}
