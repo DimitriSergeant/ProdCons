@@ -38,7 +38,8 @@ public class ProdCons implements Tampon {
     // Stockage du nombre d'exemplaires retirés associé à un message
     Map<Message, Integer> nbRetires;
 
-    // Sémaphores bloquant les Producteurs pendant la consommation des exemplaires
+    // Map associant les id des producteurs à leur sémaphore les bloquant
+    // pendant la consommation des exemplaires
     // de leurs messages
     Map<Integer, Semaphore> SemExemplaires;
 
@@ -46,7 +47,10 @@ public class ProdCons implements Tampon {
 	this.obs = o;
 	this.N = n;
 	this.tampon = new Message[N];
+	// Les producteurs peuvent déposer initialement n messages
 	SemP = new Semaphore(n);
+	// Les consommateurs peuvent retirer initialement 0 message car le
+	// buffer est vide
 	SemC = new Semaphore(0);
 	nbRetires = new HashMap<Message, Integer>();
 	SemExemplaires = new HashMap<Integer, Semaphore>();
@@ -57,14 +61,21 @@ public class ProdCons implements Tampon {
     }
 
     public Message get(_Consommateur c) throws Exception, InterruptedException {
+	// On attend que le buffer ne soit plus vide
 	SemC.P();
 	Message m;
 	int n;
 	boolean exemplairesEpuises;
+	// Section critique
 	synchronized (this) {
+	    // Retrait d'un message
 	    m = (MessageX) tampon[out];
+	    // Notification à l'observateur
+	    obs.retraitMessage(c, m);
 	    if (TestProdCons.TRACE)
 		System.out.println("Retrait " + m);
+	    // Si le nombre de retraits vaut le nombre de'exemplaire du message,
+	    // on retire le dit message de la map et du buffers
 	    n = nbRetires.get(m) + 1;
 	    if (n >= ((MessageX) m).getExemplaire()) {
 		nbRetires.remove(m);
@@ -72,34 +83,45 @@ public class ProdCons implements Tampon {
 		nplein--;
 		exemplairesEpuises = true;
 	    } else {
+		// Sinon on met à jour le nombre de retraits du message
 		nbRetires.put(m, nbRetires.get(m) + 1);
 		exemplairesEpuises = false;
 	    }
 	}
 	if (exemplairesEpuises) {
+	    // Si le message a été retiré, on libère son producteur
 	    SemExemplaires.get(((MessageX) m).getProdMess()).V();
+	    // Et on libère un producteur
 	    SemP.V();
 	} else {
+	    // Sinon on libère un consommateur
 	    SemC.V();
 	}
 
-	obs.retraitMessage(c, m);
 	return m;
     }
 
     public void put(_Producteur p, Message m) throws Exception, InterruptedException {
-	obs.depotMessage(p, m);
+	// On attend que le buffer ne soit pas plein
 	SemP.P();
+	// Section critique
 	synchronized (this) {
+	    // Retrait d'un message
 	    tampon[in] = m;
+	    // Notification à l'observateur
+	    obs.depotMessage(p, m);
 	    if (TestProdCons.TRACE)
 		System.out.println("Dépot " + m);
 	    in = (in + 1) % N;
 	    nplein++;
+	    // On ajoute le message à la map stockant le nombre de retrait qui
+	    // vaut initialement 0
 	    nbRetires.put(m, 0);
 	}
+	// On libère un consommateur
 	SemC.V();
-
+	// On ajoute le sémaphore bloquant ce producteur jusqu'à ce que tous les
+	// exemplaires du messages soient consommés
 	Semaphore s = new Semaphore(0);
 	SemExemplaires.put(p.identification(), s);
 	s.P();
