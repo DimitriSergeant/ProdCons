@@ -89,7 +89,7 @@ public class ProdCons implements Tampon {
 	    }
 	}
 	if (exemplairesEpuises) {
-	    // Si le message a été retiré, on libère son producteur
+	    // Si tous les exemplaires du message ont été retirés, on libère son producteur
 	    SemExemplaires.get(((MessageX) m).getProdMess()).V();
 	    // Et on libère un producteur
 	    SemP.V();
@@ -120,10 +120,11 @@ public class ProdCons implements Tampon {
 	}
 	// On libère un consommateur
 	SemC.V();
-	// On ajoute le sémaphore bloquant ce producteur jusqu'à ce que tous les
-	// exemplaires du messages soient consommés
+	// On ajoute le sémaphore bloquant ce producteur à la map
 	Semaphore s = new Semaphore(0);
 	SemExemplaires.put(p.identification(), s);
+	// On bloque ce producteur jusqu'à ce que tous les
+	// exemplaires du messages soient consommés
 	s.P();
     }
 
