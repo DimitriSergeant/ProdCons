@@ -27,7 +27,7 @@ public class ProdCons implements Tampon {
 	this.N = n;
 	this.tampon = new Message[N];
 	SemP = new Semaphore(n);
-	SemC = new Semaphore(n);
+	SemC = new Semaphore(0);
     }
 
     public int enAttente() {
