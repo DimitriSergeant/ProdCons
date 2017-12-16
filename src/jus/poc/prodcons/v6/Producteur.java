@@ -11,8 +11,9 @@ public class Producteur extends Acteur implements _Producteur {
     private Aleatoire VAtemps;
     private Aleatoire VAproduction;
     private ProdCons tampon;
+    private MyObservateur mo;
 
-    protected Producteur(Observateur observateur, ProdCons tampon, int moyenneTempsDeTraitement,
+    protected Producteur(Observateur observateur, MyObservateur mo, ProdCons tampon, int moyenneTempsDeTraitement,
 	    int deviationTempsDeTraitement, int nombreMoyenDeProduction, int deviationNombreMoyenDeProduction)
 	    throws ControlException {
 	super(typeProducteur, observateur, moyenneTempsDeTraitement, deviationTempsDeTraitement);
@@ -25,6 +26,8 @@ public class Producteur extends Acteur implements _Producteur {
 	this.nbMessageATraiter = VAproduction.next();
 	this.tampon = tampon;
 	this.observateur.newProducteur(this);
+	this.mo = mo;
+	this.mo.newProducteur(this);
     }
 
     @Override
@@ -50,8 +53,8 @@ public class Producteur extends Acteur implements _Producteur {
 
 	while (nbMessageATraiter > 0) {
 
-	    m = new MessageX(this.identification(), num++);
 	    int tempsDeTraitement = VAtemps.next();
+	    m = new MessageX(this.identification(), num++);
 
 	    try {
 		// On endort le thread pour simuler un temps de traitement
@@ -63,8 +66,9 @@ public class Producteur extends Acteur implements _Producteur {
 
 	    try {
 		// Dépot d'un message
-		this.tampon.put(this, m);
 		this.observateur.productionMessage(this, m, tempsDeTraitement);
+		this.mo.productionMessage(this, m, tempsDeTraitement);
+		this.tampon.put(this, m);
 		this.nbMessageATraiter--;
 	    } catch (InterruptedException e) {
 		System.out.println(e.toString());

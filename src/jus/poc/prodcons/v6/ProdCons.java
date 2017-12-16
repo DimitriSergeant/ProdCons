@@ -27,8 +27,12 @@ public class ProdCons implements Tampon {
     // Observateur
     Observateur obs;
 
-    public ProdCons(int n, Observateur o) {
+    // MyObservateur
+    MyObservateur mo;
+
+    public ProdCons(int n, Observateur o, MyObservateur mo) {
 	this.obs = o;
+	this.mo = mo;
 	this.N = n;
 	this.tampon = new Message[N];
 	SemP = new Semaphore(n);
@@ -49,9 +53,10 @@ public class ProdCons implements Tampon {
 		System.out.println("Retrait " + m);
 	    out = (out + 1) % N;
 	    nplein--;
+	    mo.retraitMessage(c, m);
+	    obs.retraitMessage(c, m);
 	}
 	SemP.V();
-	obs.retraitMessage(c, m);
 	return m;
     }
 
@@ -59,6 +64,8 @@ public class ProdCons implements Tampon {
 	SemP.P();
 	// Section critique pour manipuler les variables partagées
 	synchronized (this) {
+	    mo.depotMessage(p, m);
+	    obs.depotMessage(p, m);
 	    tampon[in] = m;
 	    if (TestProdCons.TRACE)
 		System.out.println("Dépot " + m);
@@ -66,7 +73,6 @@ public class ProdCons implements Tampon {
 	    nplein++;
 	}
 	SemC.V();
-	obs.depotMessage(p, m);
     }
 
     public int taille() {
