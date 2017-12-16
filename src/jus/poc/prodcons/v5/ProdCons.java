@@ -26,7 +26,9 @@ public class ProdCons implements Tampon {
 	// Lock permettant de bloquer la lecture ou l'écriture
 	private final Lock verrou = new ReentrantLock();
 
+	//Condition qui bloque l'ecriture du producteur 
 	Condition pasPlein = verrou.newCondition();
+	//Condition qui bloque la lecture du consommateur 
 	Condition pasVide = verrou.newCondition();
 
 	// Observateur
@@ -44,12 +46,13 @@ public class ProdCons implements Tampon {
 	}
 
 	public Message get(_Consommateur c) throws Exception, InterruptedException {
+		//on ferme le verrou
 		this.verrou.lock();
+		Message m;
 		try {
-			Message m;
 			/* On attend tant qu'il n'y a pas de message */
 			while (nplein <= 0) {
-				this.pasPlein.await();
+				this.pasVide.await();
 			}
 			m = tampon[out];
 			if (TestProdCons.TRACE)
@@ -57,19 +60,22 @@ public class ProdCons implements Tampon {
 			out = (out + 1) % N;
 			nplein--;
 			obs.retraitMessage(c, m);
+			// on réveille un producteur
 			this.pasPlein.signal();
 			return m;
 		} finally {
+			//on réouvre le verrou
 			this.verrou.unlock();
 		}
 	}
 
 	public void put(_Producteur p, Message m) throws Exception, InterruptedException {
+		//on ferme le verrou
 		this.verrou.lock();
 		try {
 			/* On attend tant qu'il y a trop de messages */
 			while (nplein >= N){
-				this.pasVide.await();	
+				this.pasPlein.await();	
 			}
 			tampon[in] = m;
 			if (TestProdCons.TRACE)
@@ -77,8 +83,10 @@ public class ProdCons implements Tampon {
 			in = (in + 1) % N;
 			nplein++;
 			obs.depotMessage(p, m);
+			// on réveille un consommateur
 			this.pasVide.signal();
 		} finally {
+			//on réouvre le verrou
 			this.verrou.unlock();
 		}
 	}
