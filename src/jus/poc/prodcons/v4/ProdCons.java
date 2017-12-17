@@ -1,6 +1,7 @@
 package jus.poc.prodcons.v4;
 
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -60,10 +61,10 @@ public class ProdCons implements Tampon {
 	// Les consommateurs peuvent retirer initialement 0 message car le
 	// buffer est vide
 	SemC = new Semaphore(0);
-	nbRetires = new HashMap<Message, Integer>();
-	BloquageCons = new HashMap<Integer, Semaphore>();
-	BloquageProd = new HashMap<Integer, Semaphore>();
-	MessageCons = new HashMap<Message, LinkedList<_Consommateur>>();
+	nbRetires = new Hashtable<Message, Integer>();
+	BloquageCons = new Hashtable<Integer, Semaphore>();
+	BloquageProd = new Hashtable<Integer, Semaphore>();
+	MessageCons = new Hashtable<Message, LinkedList<_Consommateur>>();
     }
 
     public int enAttente() {
@@ -109,8 +110,6 @@ public class ProdCons implements Tampon {
 	    BloquageProd.get(((MessageX) m).getProdMess()).V();
 	    // Et on libère les consommateurs en attente sur ce message
 	    for (_Consommateur cons : MessageCons.get(m)) {
-		if (BloquageCons.get(cons.identification()) == null)
-		    System.out.println("sem nule");
 		BloquageCons.get(cons.identification()).V();
 	    }
 	    // On supprime l'entrée dans la map

@@ -59,6 +59,25 @@ public class TestProdCons extends Simulateur {
 	    }
 	}
 
+	/*
+	 * D'après l'énoncé de la v4 :
+	 * 
+	 * Un consommateur ne peut poursuivre son activité après un retrait que lorsque
+	 * tous les exemplaires du message produit ont été retirés.
+	 * 
+	 * Il s'ensuit que si un message est produit dans le buffer avec un nombre
+	 * d'exemplaire supérieur au nombre de consommateurs, tous les consommateurs
+	 * vont se retrouver bloqués et donc le programme ne terminera pas.
+	 * 
+	 * C'est pourquoi on écrit le test suivant :
+	 */
+
+	if (nombreMoyenNbExemplaire + deviationNombreMoyenNbExemplaire > nbCons) {
+	    System.out.println("Nombre de consommateurs insuffisant pour consommer les exemplaires "
+		    + "des messages suivant le protocole diffusion/consommation synchrone.");
+	    System.exit(0);
+	}
+
 	// Création du buffer
 	buffer = new ProdCons(nbBuffer, observateur);
 
