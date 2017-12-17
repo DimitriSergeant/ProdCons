@@ -11,7 +11,7 @@ import jus.poc.prodcons.Simulateur;
 public class TestProdCons extends Simulateur {
     final private boolean DEBUG = false;
     final static boolean TRACE = true;
-    private static String configurationFile = "options.xml";
+    private static String configurationFile = "regle1.xml";
 
     private int nbProd = 0;
     private int nbCons = 0;
