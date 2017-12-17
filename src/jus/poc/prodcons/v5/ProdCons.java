@@ -51,7 +51,7 @@ public class ProdCons implements Tampon {
 		Message m;
 		try {
 			/* On attend tant qu'il n'y a pas de message */
-			if (nplein <= 0) {
+			while (nplein <= 0) {
 				this.pasVide.await();
 			}
 			m = tampon[out];
@@ -74,7 +74,7 @@ public class ProdCons implements Tampon {
 		this.verrou.lock();
 		try {
 			/* On attend tant que le buffer est plein */
-			if (nplein >= N){
+			while (nplein >= N){
 				this.pasPlein.await();	
 			}
 			tampon[in] = m;

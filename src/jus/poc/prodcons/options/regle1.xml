@@ -3,7 +3,7 @@
 <properties>
 <comment>
 Ce test permet de constater la première propriété : 
-	les messages sont retirés du tampon dans l'ordre où ils ont été déposés
+	les messages sont retirés du tampon dans l'ordre où ils ont été déposés.
 </comment>
 <entry key="nbProd">2</entry>
 <entry key="nbCons">2</entry>

@@ -3,8 +3,7 @@
 <properties>
 <comment>
 Ce test permet de constater la deuxième propriété : 
-	l'application ne se termine que lorsque tous les producteurs ont effectué leurs productions et que
-	tous les messages produits ont été consommés et traités par des consommateurs.
+	l'application ne se termine que lorsque tous les producteurs ont effectué leurs productions et que tous les messages produits ont été consommés et traités par des consommateurs.
 </comment>
 <entry key="nbProd">10</entry>
 <entry key="nbCons">10</entry>
