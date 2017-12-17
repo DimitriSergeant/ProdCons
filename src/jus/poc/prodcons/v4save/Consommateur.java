@@ -46,19 +46,21 @@ public class Consommateur extends Acteur implements _Consommateur {
 
 	while (true) {
 	    tempsDeTraitement = VAtemps.next();
-	    try {
-		// On endort le thread pour simuler un temps de traitement
-		Thread.sleep(tempsDeTraitement);
-	    } catch (InterruptedException e) {
-		System.out.println(e.toString());
-		e.printStackTrace();
-	    }
+
 	    try {
 		// Retrait d'un message du buffer
 		m = tampon.get(this);
 		this.observateur.consommationMessage(this, m, tempsDeTraitement);
 		this.nbMessageTraites++;
 	    } catch (Exception e) {
+		System.out.println(e.toString());
+		e.printStackTrace();
+	    }
+
+	    try {
+		// On endort le thread pour simuler un temps de traitement
+		Thread.sleep(tempsDeTraitement);
+	    } catch (InterruptedException e) {
 		System.out.println(e.toString());
 		e.printStackTrace();
 	    }
