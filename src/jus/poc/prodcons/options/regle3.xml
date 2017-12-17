@@ -5,8 +5,8 @@
 Ce test permet de constater la troisième propriété :
 	Les différentes lois temporelles sont vérifiées.
 </comment>
-<entry key="nbProd">3</entry>
-<entry key="nbCons">3</entry>
+<entry key="nbProd">1</entry>
+<entry key="nbCons">1</entry>
 <entry key="nbBuffer">10</entry>
 <entry key="tempsMoyenProduction">2000</entry>
 <entry key="deviationTempsMoyenProduction">0</entry>
