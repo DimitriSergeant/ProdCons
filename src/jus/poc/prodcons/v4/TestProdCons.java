@@ -114,17 +114,14 @@ public class TestProdCons extends Simulateur {
 	    System.out.println("Messages produits");
 	}
 
-	// Temps qu'il reste des messages on laisse travailler les consommateurs
+	// Tant qu'il reste des messages dans le buffer on laisse travailler les
+	// thread deamon des consommateurs en ne terminant pas ce thread
 	do {
 	    Thread.yield();
 	} while (buffer.enAttente() > 0);
 	if (DEBUG) {
 	    System.out.println("Messages consommés");
 	}
-
-	// On force la fin du programme
-	System.exit(0);
-
     }
 
     public static void main(String[] args) {

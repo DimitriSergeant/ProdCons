@@ -11,7 +11,7 @@ public class Consommateur extends Acteur implements _Consommateur {
     private int nbMessageTraites;
     private ProdCons tampon;
     private Aleatoire VAtemps;
-	private MyObservateur mo;
+    private MyObservateur mo;
 
     protected Consommateur(Observateur observateur, MyObservateur mo, ProdCons tampon, int moyenneTempsDeTraitement,
 	    int deviationTempsDeTraitement) throws ControlException {
@@ -24,6 +24,9 @@ public class Consommateur extends Acteur implements _Consommateur {
 	this.observateur.newConsommateur(this);
 	this.mo = mo;
 	this.mo.newConsommateur(this);
+
+	// La JVM s'arrête quand il ne reste que des thread consommateurs
+	this.setDaemon(true);
     }
 
     @Override
@@ -49,7 +52,7 @@ public class Consommateur extends Acteur implements _Consommateur {
 
 	while (true) {
 	    tempsDeTraitement = VAtemps.next();
-	    
+
 	    try {
 		// Retrait d'un message du buffer
 		m = tampon.get(this);
@@ -60,7 +63,7 @@ public class Consommateur extends Acteur implements _Consommateur {
 		System.out.println(e.toString());
 		e.printStackTrace();
 	    }
-	    
+
 	    try {
 		// On endort le thread pour simuler un temps de traitement
 		Thread.sleep(tempsDeTraitement);

@@ -12,7 +12,7 @@ Ce test permet de constater la première propriété :
 <entry key="deviationTempsMoyenProduction">2</entry>
 <entry key="tempsMoyenConsommation">1000</entry>
 <entry key="deviationTempsMoyenConsommation">25</entry>
-<entry key="nombreMoyenDeProduction">10</entry>
+<entry key="nombreMoyenDeProduction">5</entry>
 <entry key="deviationNombreMoyenDeProduction">2</entry>
 <entry key="nombreMoyenNbExemplaire">3</entry>
 <entry key="deviationNombreMoyenNbExemplaire">3</entry>

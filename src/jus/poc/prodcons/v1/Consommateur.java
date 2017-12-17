@@ -21,6 +21,9 @@ public class Consommateur extends Acteur implements _Consommateur {
 	// Création de la variable aléatoire générant le temps de traitement d'un
 	// message
 	VAtemps = new Aleatoire(moyenneTempsDeTraitement, deviationTempsDeTraitement);
+
+	// La JVM s'arrête quand il ne reste que des thread consommateurs
+	this.setDaemon(true);
     }
 
     @Override
@@ -52,7 +55,7 @@ public class Consommateur extends Acteur implements _Consommateur {
 		System.out.println(e.toString());
 		e.printStackTrace();
 	    }
-	    
+
 	    try {
 		// On endort le thread pour simuler un temps de traitement
 		Thread.sleep(VAtemps.next());
@@ -62,5 +65,4 @@ public class Consommateur extends Acteur implements _Consommateur {
 	    }
 	}
     }
-
 }

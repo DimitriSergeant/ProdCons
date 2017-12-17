@@ -11,7 +11,7 @@ import jus.poc.prodcons.Simulateur;
 public class TestProdCons extends Simulateur {
     final private boolean DEBUG = false;
     final static boolean TRACE = true;
-    final private static String configurationFile = "regle3.xml";
+    final private static String configurationFile = "options.xml";
 
     private int nbProd = 0;
     private int nbCons = 0;
@@ -93,23 +93,17 @@ public class TestProdCons extends Simulateur {
 	    System.out.println("Messages produits");
 	}
 
-	// Tant qu'il reste des messages dans le buffer, on laisse travailler les
-	// consommateurs
+	// Tant qu'il reste des messages dans le buffer on laisse travailler les
+	// thread deamon des consommateurs en ne terminant pas ce thread
 	do {
 	    Thread.yield();
 	} while (buffer.enAttente() > 0);
 	if (DEBUG) {
 	    System.out.println("Messages consommés");
 	}
-
-	// On force l'arrêt du programme lorsque tous les messages ont été produit,
-	// consommé et traités
-	System.exit(0);
-
     }
 
     public static void main(String[] args) {
 	new TestProdCons(new Observateur()).start();
     }
-
 }

@@ -18,10 +18,10 @@ public class ProdCons implements Tampon {
 
     public ProdCons(int n) {
 	this.N = n;
-	this.tampon = new Message[N];
+	this.tampon = new Message[taille()];
     }
 
-    public int enAttente() {
+    public synchronized int enAttente() {
 	return nplein;
     }
 
@@ -33,7 +33,7 @@ public class ProdCons implements Tampon {
 	Message m = tampon[out];
 	if (TestProdCons.TRACE)
 	    System.out.println("Retrait " + m);
-	out = (out + 1) % N;
+	out = (out + 1) % taille();
 	nplein--;
 	// On réveille les producteurs
 	notifyAll();
@@ -42,19 +42,19 @@ public class ProdCons implements Tampon {
 
     public synchronized void put(_Producteur p, Message m) throws Exception, InterruptedException {
 	// On attend que le buffer ne soit plus plein
-	while (nplein >= N)
+	while (nplein >= taille())
 	    wait();
 	// Dépot d'un message
 	tampon[in] = m;
 	if (TestProdCons.TRACE)
 	    System.out.println("Dépot " + m);
-	in = (in + 1) % N;
+	in = (in + 1) % taille();
 	nplein++;
 	// On réveille les consommateurs
 	notifyAll();
     }
 
-    public int taille() {
+    public synchronized int taille() {
 	return this.N;
     }
 }
