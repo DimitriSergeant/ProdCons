@@ -160,7 +160,7 @@ public class ProdCons implements Tampon {
 
     private void ajoutCons(Message m, _Consommateur c) {
 	if (MessageCons.containsKey(m)) {
-	    // Si le massage est dejà dans la map et on ajoute le consommateur
+	    // Si le message est dejà dans la map on ajoute le consommateur
 	    MessageCons.get(m).add(c);
 	} else {
 	    // Sinon on cré l'entrée et on ajoute le consommateur
