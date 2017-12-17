@@ -21,9 +21,6 @@ public class Consommateur extends Acteur implements _Consommateur {
 	// message
 	VAtemps = new Aleatoire(moyenneTempsDeTraitement, deviationTempsDeTraitement);
 	this.observateur.newConsommateur(this);
-
-	// La JVM s'arrête quand il ne reste que des thread consommateurs
-	this.setDaemon(true);
     }
 
     @Override

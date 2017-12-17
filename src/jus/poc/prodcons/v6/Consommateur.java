@@ -24,9 +24,6 @@ public class Consommateur extends Acteur implements _Consommateur {
 	this.observateur.newConsommateur(this);
 	this.mo = mo;
 	this.mo.newConsommateur(this);
-
-	// La JVM s'arrête quand il ne reste que des thread consommateurs
-	this.setDaemon(true);
     }
 
     @Override

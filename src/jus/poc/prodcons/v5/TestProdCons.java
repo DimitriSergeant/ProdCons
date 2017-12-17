@@ -80,6 +80,8 @@ public class TestProdCons extends Simulateur {
 	    Consommateur c = new Consommateur(observateur, buffer, tempsMoyenConsommation,
 		    deviationTempsMoyenConsommation);
 	    consommateurs.add(c);
+	    // La JVM s'arrête quand il ne reste que des thread consommateurs
+	    c.setDaemon(true);
 	    c.start();
 	    if (DEBUG) {
 		System.out.println("Création du consommateur " + c.getId());
