@@ -58,9 +58,10 @@ public class Producteur extends Acteur implements _Producteur {
 	    int tempsDeTraitement = VAtemps.next();
 
 	    try {
+		this.observateur.productionMessage(this, m, tempsDeTraitement);
 		// On endort le thread pour simuler un temps de traitement
 		Thread.sleep(tempsDeTraitement);
-	    } catch (InterruptedException e) {
+	    } catch (Exception e) {
 		System.out.println(e.toString());
 		e.printStackTrace();
 	    }
@@ -68,7 +69,6 @@ public class Producteur extends Acteur implements _Producteur {
 	    try {
 		// Dépot du message
 		this.tampon.put(this, m);
-		this.observateur.productionMessage(this, m, tempsDeTraitement);
 		this.nbMessageATraiter--;
 	    } catch (InterruptedException e) {
 		System.out.println(e.toString());

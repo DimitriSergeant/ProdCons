@@ -57,17 +57,17 @@ public class Producteur extends Acteur implements _Producteur {
 	    m = new MessageX(this.identification(), num++);
 
 	    try {
+		this.observateur.productionMessage(this, m, tempsDeTraitement);
+		this.mo.productionMessage(this, m, tempsDeTraitement);
 		// On endort le thread pour simuler un temps de traitement
 		Thread.sleep(tempsDeTraitement);
-	    } catch (InterruptedException e) {
+	    } catch (Exception e) {
 		System.out.println(e.toString());
 		e.printStackTrace();
 	    }
 
 	    try {
 		// Dépot d'un message
-		this.observateur.productionMessage(this, m, tempsDeTraitement);
-		this.mo.productionMessage(this, m, tempsDeTraitement);
 		this.tampon.put(this, m);
 		this.nbMessageATraiter--;
 	    } catch (InterruptedException e) {
